@@ -1,0 +1,23 @@
+# ── C++ build artifacts ──
+*.o
+*.obj
+/mbanking
+/mbanking-server
+/tests/run_tests
+*.exe
+
+# ── Node / Vite ──
+web/node_modules/
+web/dist/
+npm-debug.log*
+yarn-error.log*
+
+# ── Editors / OS ──
+.DS_Store
+.vscode/
+.idea/
+*.swp
+
+# ── Env / secrets ──
+.env
+.env.*

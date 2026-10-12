@@ -1,0 +1,5 @@
+export const APP_NAME = 'Strawcha Bank'
+export const APP_SHORT = 'STC'
+export const APP_TAGLINE = 'Banking segar, semudah es krim stroberi matcha'
+export const GITHUB_URL = 'https://github.com/TypoxCat'
+export const GITHUB_LABEL = 'TypoxCat'
