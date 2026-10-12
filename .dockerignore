@@ -3,8 +3,11 @@
 web
 screenshots
 *.o
+**/*.o
 mbanking
 mbanking-server
 tests/run_tests
 .DS_Store
 README.md
+DEPLOY.md
+render.yaml

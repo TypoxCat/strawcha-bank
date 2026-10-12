@@ -1,6 +1,6 @@
 # Deploy notes (internal)
 
-Notes for deploying the demo. Not part of the user-facing README.
+Notes for deploying the demo. 
 
 GitHub Pages only serves static files, so the C++ API runs separately on Render.
 

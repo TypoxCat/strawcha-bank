@@ -4,7 +4,8 @@ WORKDIR /app
 COPY Makefile ./
 COPY src ./src
 COPY server ./server
-RUN make mbanking-server
+RUN make clean && make mbanking-server \
+    CXXFLAGS="-std=c++17 -O2 -I. -Iserver -Isrc -static-libstdc++ -static-libgcc"
 
 # ── Runtime stage ──
 FROM debian:bookworm-slim
