@@ -1,4 +1,5 @@
-const BASE = '';
+// In production the API lives elsewhere (e.g. Render). Set VITE_API_URL at build time.
+const BASE = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '');
 
 export function getToken() {
   return localStorage.getItem('mbank_token');

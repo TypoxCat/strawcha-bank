@@ -28,9 +28,10 @@ function PublicOnly({ children }) {
 }
 
 export default function App() {
+  const basename = import.meta.env.BASE_URL.replace(/\/$/, '') || '/'
   return (
     <AuthProvider>
-      <BrowserRouter>
+      <BrowserRouter basename={basename}>
         <PillarNotes />
         <Routes>
           {/* public */}

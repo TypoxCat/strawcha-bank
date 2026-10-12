@@ -1,0 +1,10 @@
+# Render Blueprint — deploy the C++ REST API as a Docker web service.
+# Dashboard: https://dashboard.render.com/blueprints
+services:
+  - type: web
+    name: strawcha-bank-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    autoDeploy: true

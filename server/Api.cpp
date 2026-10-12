@@ -142,6 +142,10 @@ void Api::registerRoutes(httplib::Server& svr) {
 
     svr.Post("/api/staff/month-end", [this](const auto& req, auto& res){ handleStaffMonthEnd(req,res); });
     svr.Get("/api/staff/log", [this](const auto& req, auto& res){ handleStaffLog(req,res); });
+
+    svr.Get("/api/health", [](const auto&, auto& res){
+        res.set_content(R"({"status":"ok"})", "application/json");
+    });
 }
 
 // Helpers to send errors
