@@ -31,6 +31,13 @@ Staff console passcode: `staff123`.
 State is kept in memory (same as the console app), so restarting the
 server resets all customers and transactions.
 
+### Stop the servers
+`Ctrl+C` in the terminal running them, or kill by process name:
+```
+pkill -f mbanking-server   # stop the C++ API
+pkill -f vite              # stop the Vite dev server
+```
+
 ### API endpoints
 | Method | Path | Notes |
 |---|---|---|
