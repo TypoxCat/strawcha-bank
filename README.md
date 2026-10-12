@@ -66,41 +66,48 @@ server resets all customers and transactions.
 
 ## OOP pillars (where to look)
 
-Short map of the four pillars to the code, with `file:line` so you can jump
-straight there.
+Short map of the four pillars to the code. Each link opens the exact file and
+line on GitHub.
 
 ### Encapsulation — private data, changed only through methods
 - `Account` keeps `balance_`/`history_` private; only the validated
   `deposit`/`withdraw` or the `protected` `credit`/`debit` can touch them —
-  `src/Account.h:44`, `src/Account.cpp:38`.
+  [src/Account.h:44](src/Account.h#L44), [src/Account.cpp:38](src/Account.cpp#L38).
 - `Customer` stores only a PIN *hash* and exposes no getter, so the only way in
-  is `verifyPin`/`changePin` — `src/Customer.h:33`, `src/Customer.cpp:20`.
+  is `verifyPin`/`changePin` — [src/Customer.h:33](src/Customer.h#L33),
+  [src/Customer.cpp:20](src/Customer.cpp#L20).
 - `Transaction::execute()` is `protected`; outside code can only call
-  `process()` — `src/Transaction.h:18`, `src/Transaction.h:33`.
+  `process()` — [src/Transaction.h:18](src/Transaction.h#L18),
+  [src/Transaction.h:33](src/Transaction.h#L33).
 
 ### Abstraction — one simple call, details hidden
 - The UI only calls `Bank::login`/`transfer`/`topUpEWallet`/`payBill`; customer
   lookup, ownership checks and logging stay inside `Bank` —
-  `src/Bank.h:17`, `src/Bank.cpp:28`.
+  [src/Bank.h:17](src/Bank.h#L17), [src/Bank.cpp:28](src/Bank.cpp#L28).
 - `Account::deposit`/`withdraw` hide the balance and history bookkeeping —
-  `src/Account.cpp:25`.
+  [src/Account.cpp:25](src/Account.cpp#L25).
 
 ### Inheritance — "IS-A" reuse of a base class
 - `SavingsAccount` and `CheckingAccount` derive from `Account` —
-  `src/SavingsAccount.h:5`, `src/CheckingAccount.h:6`.
+  [src/SavingsAccount.h:5](src/SavingsAccount.h#L5),
+  [src/CheckingAccount.h:6](src/CheckingAccount.h#L6).
 - `TransferTransaction`, `EWalletTopUpTransaction` and `BillPaymentTransaction`
-  derive from `Transaction` — `src/TransferTransaction.h:6`,
-  `src/EWalletTopUpTransaction.h:5`, `src/BillPaymentTransaction.h:5`.
+  derive from `Transaction` —
+  [src/TransferTransaction.h:6](src/TransferTransaction.h#L6),
+  [src/EWalletTopUpTransaction.h:5](src/EWalletTopUpTransaction.h#L5),
+  [src/BillPaymentTransaction.h:5](src/BillPaymentTransaction.h#L5).
 
 ### Polymorphism — one call, many behaviors
 - Dynamic: the pure virtual `availableFunds`/`monthlyProcess`/`typeName` are
   overridden per account type; `Bank::runMonthEnd()` loops over `Account*` and
-  interest vs. fee happens automatically — `src/Account.h:30`,
-  `src/Bank.cpp:115`, `src/SavingsAccount.cpp:17`,
-  `src/CheckingAccount.cpp:17`.
+  interest vs. fee happens automatically —
+  [src/Account.h:30](src/Account.h#L30), [src/Bank.cpp:115](src/Bank.cpp#L115),
+  [src/SavingsAccount.cpp:17](src/SavingsAccount.cpp#L17),
+  [src/CheckingAccount.cpp:17](src/CheckingAccount.cpp#L17).
 - Dynamic: `typeName`/`describe`/`fee`/`execute` are overridden per transaction
-  and chosen at runtime — `src/Transaction.h:28`,
-  `src/TransferTransaction.h:12`, `src/EWalletTopUpTransaction.h:12`,
-  `src/BillPaymentTransaction.h:11`.
+  and chosen at runtime — [src/Transaction.h:28](src/Transaction.h#L28),
+  [src/TransferTransaction.h:12](src/TransferTransaction.h#L12),
+  [src/EWalletTopUpTransaction.h:12](src/EWalletTopUpTransaction.h#L12),
+  [src/BillPaymentTransaction.h:11](src/BillPaymentTransaction.h#L11).
 - Static (overloading): `deposit(double)` vs `deposit(double, note)` —
-  `src/Account.h:19`, `src/Account.cpp:29`.
+  [src/Account.h:19](src/Account.h#L19), [src/Account.cpp:29](src/Account.cpp#L29).
