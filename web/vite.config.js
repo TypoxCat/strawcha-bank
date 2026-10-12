@@ -9,7 +9,9 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        target: 'http://localhost:8080',
+        // 127.0.0.1 (bukan "localhost") agar tidak nyasar ke service lain yang
+        // memakai port 8080 di IPv6 (mis. container Docker).
+        target: 'http://127.0.0.1:8080',
         changeOrigin: true
       }
     }
