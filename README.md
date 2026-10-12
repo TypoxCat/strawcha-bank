@@ -63,3 +63,44 @@ server resets all customers and transactions.
 | Exceptions.h | BankException hierarchy |
 | Utils.h/.cpp | Rupiah formatting, timestamp |
 | main.cpp | Console menu and demo mode |
+
+## OOP pillars (where to look)
+
+Short map of the four pillars to the code, with `file:line` so you can jump
+straight there.
+
+### Encapsulation — private data, changed only through methods
+- `Account` keeps `balance_`/`history_` private; only the validated
+  `deposit`/`withdraw` or the `protected` `credit`/`debit` can touch them —
+  `src/Account.h:44`, `src/Account.cpp:38`.
+- `Customer` stores only a PIN *hash* and exposes no getter, so the only way in
+  is `verifyPin`/`changePin` — `src/Customer.h:33`, `src/Customer.cpp:20`.
+- `Transaction::execute()` is `protected`; outside code can only call
+  `process()` — `src/Transaction.h:18`, `src/Transaction.h:33`.
+
+### Abstraction — one simple call, details hidden
+- The UI only calls `Bank::login`/`transfer`/`topUpEWallet`/`payBill`; customer
+  lookup, ownership checks and logging stay inside `Bank` —
+  `src/Bank.h:17`, `src/Bank.cpp:28`.
+- `Account::deposit`/`withdraw` hide the balance and history bookkeeping —
+  `src/Account.cpp:25`.
+
+### Inheritance — "IS-A" reuse of a base class
+- `SavingsAccount` and `CheckingAccount` derive from `Account` —
+  `src/SavingsAccount.h:5`, `src/CheckingAccount.h:6`.
+- `TransferTransaction`, `EWalletTopUpTransaction` and `BillPaymentTransaction`
+  derive from `Transaction` — `src/TransferTransaction.h:6`,
+  `src/EWalletTopUpTransaction.h:5`, `src/BillPaymentTransaction.h:5`.
+
+### Polymorphism — one call, many behaviors
+- Dynamic: the pure virtual `availableFunds`/`monthlyProcess`/`typeName` are
+  overridden per account type; `Bank::runMonthEnd()` loops over `Account*` and
+  interest vs. fee happens automatically — `src/Account.h:30`,
+  `src/Bank.cpp:115`, `src/SavingsAccount.cpp:17`,
+  `src/CheckingAccount.cpp:17`.
+- Dynamic: `typeName`/`describe`/`fee`/`execute` are overridden per transaction
+  and chosen at runtime — `src/Transaction.h:28`,
+  `src/TransferTransaction.h:12`, `src/EWalletTopUpTransaction.h:12`,
+  `src/BillPaymentTransaction.h:11`.
+- Static (overloading): `deposit(double)` vs `deposit(double, note)` —
+  `src/Account.h:19`, `src/Account.cpp:29`.
